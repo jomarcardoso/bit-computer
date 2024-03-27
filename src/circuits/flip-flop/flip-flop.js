@@ -1,4 +1,4 @@
-import { NOR } from '../logical-gate/index.js';
+import { NOR } from '../logical-gate/index';
 
 export const T_FLIP_FLOP = () => {
   let carry = 0;

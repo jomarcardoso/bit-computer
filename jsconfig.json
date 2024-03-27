@@ -1,0 +1,4 @@
+{
+  "compilerOptions": {},
+  "include": ["src/**/*", "node_modules/rxjs/dist/types/index.d.ts"]
+}
