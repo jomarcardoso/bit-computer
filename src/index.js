@@ -1,17 +1,44 @@
 import { fromEvent, map } from 'rxjs';
-import { Nor } from './rxjs-circuits/index';
-import { Thread } from './rxjs-circuits/thread';
+import { And } from './rxjs-circuits/index';
+import { FlipFlopJK } from './rxjs-circuits/flip-flop/flip-flop-jk';
 
-const _set = fromEvent(buttonA, 'change').pipe(
+const j = fromEvent(buttonJ, 'change').pipe(
   map(({ target }) => Number(target.checked)),
 );
-const _reset = fromEvent(buttonB, 'change').pipe(
+const clk = fromEvent(buttonClk, 'click').pipe(map(() => 0));
+const k = fromEvent(buttonK, 'change').pipe(
   map(({ target }) => Number(target.checked)),
 );
 
-const thread = Thread();
+const flipFlopJK0 = FlipFlopJK({
+  j,
+  clk,
+  k,
+});
 
-const nor1 = Nor(_set, thread.subject);
-const nor2 = Nor(_reset, nor1);
-thread.subscribe(nor2);
-nor2.subscribe((i) => console.log(i));
+const flipFlopJK1 = FlipFlopJK({
+  j: flipFlopJK0.q,
+  clk,
+  k: flipFlopJK0.q,
+});
+
+const and1 = And(flipFlopJK0.q, flipFlopJK1.q);
+
+const flipFlopJK2 = FlipFlopJK({
+  j: and1,
+  clk,
+  k: and1,
+});
+
+const and2 = And(and1, flipFlopJK2.q);
+
+const flipFlopJK3 = FlipFlopJK({
+  j: and2,
+  clk,
+  k: and2,
+});
+
+flipFlopJK0.q.subscribe((i) => console.log('q0', i));
+flipFlopJK1.q.subscribe((i) => console.log('q1', i));
+flipFlopJK2.q.subscribe((i) => console.log('q2', i));
+flipFlopJK3.q.subscribe((i) => console.log('q3', i));
