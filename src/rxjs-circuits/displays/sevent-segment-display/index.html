@@ -1,0 +1,73 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7 segment display</title>
+  <style>
+    .seven-segment-display {
+      display: grid;
+      grid-template-areas:
+        '. a .'
+        'f . b'
+        '. g .'
+        'e . c'
+        '. d .';
+      grid-template-columns: 1fr 3fr 1fr;
+      grid-template-rows: 1fr 3fr 1fr 3fr 1fr;
+      height: 180px;
+      width: 100px;
+
+      >* {
+        background-color: red;
+      }
+
+      >.a {
+        grid-area: a;
+      }
+
+      >.b {
+        grid-area: b;
+      }
+
+      >.c {
+        grid-area: c;
+      }
+
+      >.d {
+        grid-area: d;
+      }
+
+      >.e {
+        grid-area: e;
+      }
+
+      >.f {
+        grid-area: f;
+      }
+
+      >.g {
+        grid-area: g;
+      }
+
+      >.dp {
+        grid-area: dp;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="seven-segment-display">
+    <div class="a"></div>
+    <div class="b"></div>
+    <div class="c"></div>
+    <div class="d"></div>
+    <div class="e"></div>
+    <div class="f"></div>
+    <div class="g"></div>
+    <div class="dp"></div>
+  </div>
+</body>
+
+</html>
